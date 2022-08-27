@@ -1,45 +1,64 @@
-import React from 'react';
-import { Text , ImageBackground , StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Text, View, ImageBackground, StyleSheet } from 'react-native'
 import Forecast from './Forecast';
-import { useState, useEffect } from 'react';
+import Constants from 'expo-constants';
 
 export default function Weather(props) {
     useEffect(() => {
         console.log(`fetching data with zipCode = ${props.zipCode}`)
         if (props.zipCode) {
             fetch(`http://api.openweathermap.org/data/2.5/weather?q=${props.zipCode},th&units=metric&APPID=50360fdc693e3cb32910e4dd6d98d839`)
-            .then((response) => response.json())
-            .then((json) => {
-                setForecastInfo({
-                    main: json.weather[0].main,
-                    description: json.weather[0].description,
-                    temp: json.main.temp
-                });
+                .then((response) => response.json())
+                .then((json) => {
+                    setForecastInfo({
+                        main: json.weather[0].main,
+                        description: json.weather[0].description,
+                        temp: json.main.temp
+                    });
             })
-        .catch((error) => {
-            console.warn(error);
-        });
- }
- }, [props.zipCode])
+            .catch((error) => {
+                console.warn(error);
+            });
+        }
+    }, [props.zipCode])
 
     const [forecastInfo, setForecastInfo] = useState({
-        main: "-",
-        description: "-",
+        line: '',
+        main: '',
+        description: '',
         temp: 0
-    }) 
+    })
+
     return (
-        <ImageBackground source={require('../screen.jpg')} style={styles.backdrop}>
-             <Text>Zip code</Text>
-             <Text>{props.zipCode}</Text>
-             <Forecast {...forecastInfo}/>
-         </ImageBackground> 
- );
+        <View>
+            <ImageBackground source={require('../screen.jpg')} style={styles.backdrop}>
+                <View style={styles.highlight}>
+                    <Text style={styles.titleText}>Zip code is {props.zipCode}.</Text>
+                    <Forecast {...forecastInfo}/>
+                </View>
+            </ImageBackground>
+        </View>
+    );
 }
-    const styles = StyleSheet.create({
-        backdrop: {
-            alignItems: 'center',
-            width: '100%',
-            height: '100%'
-        },
-    });
-   
+
+const styles = StyleSheet.create({
+    backdrop: {
+        alignItems: 'center',
+        width: '100%',
+        height: '100%'
+    },
+    highlight: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        width:"100%", 
+        height:"45%", 
+        paddingTop: Constants.statusBarHeight, 
+        alignItems: 'center'
+    },
+
+    titleText: {
+        fontSize: 20,
+        fontWeight: "bold",
+        color: 'white',
+        textAlign: 'center'
+    }
+});
