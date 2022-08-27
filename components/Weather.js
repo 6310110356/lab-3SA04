@@ -48,15 +48,15 @@ const styles = StyleSheet.create({
         height: '100%'
     },
     highlight: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
         width:"100%", 
-        height:"45%", 
+        height:"100%", 
         paddingTop: Constants.statusBarHeight, 
         alignItems: 'center'
     },
 
     titleText: {
-        fontSize: 20,
+        fontSize: 30,
         fontWeight: "bold",
         color: 'white',
         textAlign: 'center'

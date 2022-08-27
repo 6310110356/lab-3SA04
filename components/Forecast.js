@@ -21,18 +21,19 @@ const style = StyleSheet.create(
     {
         normalText: {
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 30,
             fontWeight: "bold",
             color: 'white',
-
+            fontWeight: '600'
         },
 
         Text: {
-            fontSize: 40, 
+            fontSize: 45, 
             fontWeight: "bold", 
             color: 'white', 
             textAlign: 'center',
-            lineHeight: 60
+            lineHeight: 60,
+            fontWeight: '650'
         }
     }
 )
